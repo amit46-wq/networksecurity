@@ -41,6 +41,10 @@ class DataValidation:
         try:
             status=True
             report={}
+
+            drop_cols = ["_id"]
+            base_df = base_df.drop(columns=[c for c in drop_cols if c in base_df.columns], errors="ignore")
+            current_df = current_df.drop(columns=[c for c in drop_cols if c in current_df.columns], errors="ignore")
             for column in base_df.columns:
                 d1=base_df[column]
                 d2=current_df[column]
