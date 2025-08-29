@@ -23,6 +23,9 @@ from sklearn.ensemble import (
 
 import mlflow
 from urllib.parse import urlparse
+
+import dagshub
+dagshub.init(repo_owner='amit46-wq', repo_name='networksecurity', mlflow=True)
 '''
 import dagshub
 #dagshub.init(repo_owner='krishnaik06', repo_name='networksecurity', mlflow=True)
@@ -41,7 +44,7 @@ class ModelTrainer:
             raise NetworkSecurityException(e,sys)
         
     def track_mlflow(self, best_model, classificationmetric):
-        mlflow.set_registry_uri("https://dagshub.com/krishnaik06/networksecurity.mlflow")
+        mlflow.set_registry_uri("https://dagshub.com/amit46-wq/networksecurity.mlflow")
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         
         with mlflow.start_run():
@@ -135,6 +138,7 @@ class ModelTrainer:
         
         # Save the wrapped model FIRST
         save_object(self.model_trainer_config.trained_model_file_path, obj=network_model)
+
         
         # Save the final model
         final_model_dir = os.path.dirname("final_model/model.pkl")
